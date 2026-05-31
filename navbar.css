@@ -1,0 +1,42 @@
+:root {
+    --brown-dark: #3b2314; --brown-mid: #5c3520; --brown-light: #7a4a2c;
+    --cream: #fdf8f3; --cream-dark: #f0e8dc; --cream-mid: #e8ddd0;
+    --gold: #c9a96e; --gold-lt: #e2c89a; --white: #fdf8f3; --gray: #a0876e;
+    --nav-height: 82px; --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.navbar { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(59, 35, 20, 0.92); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(201, 169, 110, 0.2); transition: var(--transition); }
+.navbar.scrolled { background: rgba(59, 35, 20, 0.98); box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); }
+.nav-container { max-width: 1400px; margin: 0 auto; padding: 0 2rem; height: var(--nav-height); display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+.nav-logo { font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: 1.2rem; letter-spacing: 0.2em; color: var(--gold); text-decoration: none; white-space: nowrap; }
+.nav-links { display: flex; gap: 0.25rem; background: rgba(253, 248, 243, 0.06); border: 1px solid rgba(253, 248, 243, 0.12); border-radius: 50px; padding: 0.35rem 0.5rem; }
+.nav-links a { text-decoration: none; color: rgba(253, 248, 243, 0.7); font-size: 0.85rem; font-weight: 500; padding: 0.5rem 1.2rem; border-radius: 50px; transition: var(--transition); }
+.nav-links a:hover, .nav-links a.active { background: rgba(201, 169, 110, 0.2); color: var(--gold-lt); }
+.nav-right { display: flex; align-items: center; gap: 1rem; }
+.agent-avatars { display: flex; align-items: center; }
+.avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 600; border: 2px solid var(--brown-dark); margin-left: -8px; transition: var(--transition); cursor: default; }
+.avatar:hover { transform: translateY(-3px); z-index: 2; }
+.av-a { background: #5c7e9f; color: white; }
+.av-b { background: #4a7a6d; color: white; }
+.av-c { background: #7a6d4a; color: white; }
+.av-more { background: var(--gold); color: var(--brown-dark); }
+.btn-contact, .btn-signin, .btn-register { font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; padding: 0.55rem 1.4rem; border-radius: 50px; cursor: pointer; transition: var(--transition); min-width: 100px; text-align: center; height: 40px; display: inline-flex; align-items: center; justify-content: center; background: var(--gold); border: none; color: var(--brown-dark); }
+.btn-contact:hover, .btn-signin:hover, .btn-register:hover { background: var(--gold-lt); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(201, 169, 110, 0.3); }
+.lang-toggle { display: flex; background: rgba(59, 35, 20, 0.5); border: 1px solid rgba(201, 169, 110, 0.25); border-radius: 50px; overflow: hidden; }
+.lang-btn { font-family: 'DM Sans', sans-serif; font-size: 0.75rem; font-weight: 500; padding: 0.45rem 0.9rem; cursor: pointer; border: none; background: transparent; color: rgba(253, 248, 243, 0.5); transition: var(--transition); }
+.lang-btn.active { background: var(--brown-mid); color: var(--gold-lt); }
+.nav-hamburger { display: none; background: none; border: none; color: var(--white); font-size: 1.3rem; cursor: pointer; }
+#mobileMenu { position: fixed; top: 82px; left: 0; right: 0; background: rgba(59, 35, 20, 0.98); backdrop-filter: blur(20px); padding: 1.5rem; z-index: 998; border-bottom: 1px solid rgba(201, 169, 110, 0.2); animation: slideDown 0.3s ease; }
+#mobileMenu a { display: block; color: rgba(253, 248, 243, 0.8); text-decoration: none; padding: 0.8rem 0; border-bottom: 1px solid rgba(201, 169, 110, 0.1); font-size: 1rem; }
+#mobileMenu a:hover { color: #c9a96e; }
+.mobile-buttons { display: flex; gap: 1rem; margin-top: 1rem; padding-top: 0.5rem; flex-wrap: wrap; }
+.btn-contact-mobile, .btn-signin-mobile, .btn-register-mobile { flex: 1; padding: 0.8rem; border-radius: 50px; font-weight: 600; cursor: pointer; font-size: 0.9rem; text-align: center; background: var(--gold); border: none; color: var(--brown-dark); }
+.btn-contact-mobile { background: transparent; border: 1px solid rgba(201, 169, 110, 0.3); color: #fdf8f3; }
+@keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+body[dir="rtl"] .nav-container { flex-direction: row-reverse; }
+body[dir="rtl"] .avatar { margin-left: 0; margin-right: -8px; }
+@media (max-width: 900px) {
+    .nav-links, .nav-right .agent-avatars, .nav-right .btn-contact, .nav-right .btn-signin, .nav-right .btn-register { display: none; }
+    .nav-hamburger { display: block; }
+    .nav-right .lang-toggle { display: flex; }
+    .nav-container { padding: 0 1.5rem; }
+}

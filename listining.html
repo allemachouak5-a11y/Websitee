@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>DreamHome | Properties in Annaba</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="listining.css">
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.php" class="nav-logo">DREAMHOME</a>
+        <div class="nav-links" id="navLinks"></div>
+        <div class="nav-right" id="navRight"></div>
+        <button class="nav-hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<section class="listining-hero">
+    <div class="listining-hero-bg">
+        <img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&auto=format" alt="Properties in Annaba">
+        <div class="listing-hero-overlay"></div>
+    </div>
+    <div class="listing-hero-content">
+        <h1 class="listing-hero-title">Find Your <span class="t-gold">Dream Space</span> in <span class="t-gold">Annaba</span></h1>
+        <div class="prop-count-bar">
+            <i class="fas fa-home"></i>
+            <strong id="resultCount">0</strong>
+            <span>properties available</span>
+        </div>
+    </div>
+</section>
+
+<div class="search-section">
+    <div class="search-bar">
+        <div class="search-field">
+            <label class="search-label"><i class="fas fa-map-marker-alt"></i> LOCATION</label>
+            <select class="search-select" id="filterLocation">
+                <option value="">All Locations in Annaba</option>
+                <option value="seraidi">Seraïdi</option>
+                <option value="el-bouni">El Bouni</option>
+                <option value="sidi-amar">Sidi Amar</option>
+                <option value="annaba">Annaba Centre</option>
+                <option value="chetaibi">Chetaïbi</option>
+                <option value="boulimat">Boulimat</option>
+                <option value="el-hadjar">El Hadjar</option>
+                <option value="ain-berda">Aïn Berda</option>
+                <option value="plateau">Plateau</option>
+                <option value="st-cloud">Saint Cloud</option>
+            </select>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+            <label class="search-label"><i class="fas fa-home"></i> PROPERTY TYPE</label>
+            <select class="search-select" id="filterType">
+                <option value="">All Types</option>
+                <option value="villa">Villa</option>
+                <option value="apartment">Apartment</option>
+                <option value="studio">Studio</option>
+                <option value="duplex">Duplex</option>
+                <option value="penthouse">Penthouse</option>
+                <option value="loft">Loft</option>
+            </select>
+        </div>
+        <div class="search-divider"></div>
+        <div class="search-field">
+            <label class="search-label"><i class="fas fa-users"></i> GUESTS</label>
+            <select class="search-select" id="filterGuests">
+                <option value="0">Any guests</option>
+                <option value="1">1+ guests</option>
+                <option value="2">2+ guests</option>
+                <option value="4">4+ guests</option>
+                <option value="6">6+ guests</option>
+                <option value="8">8+ guests</option>
+                <option value="10">10+ guests</option>
+                <option value="12">12+ guests</option>
+            </select>
+        </div>
+        <button class="btn-search" id="searchBtn"><i class="fas fa-search"></i> Search</button>
+    </div>
+</div>
+
+<div class="page-layout">
+    <main class="listings-main">
+        
+        <div class="price-range-card">
+            <div class="price-range-header">
+                <div class="price-range-title">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Price Range DZD</span>
+                </div>
+                <div class="price-range-badge" id="priceRangeValue">
+                    <span class="price-min">0 DA</span>
+                    <i class="fas fa-arrow-right"></i>
+                    <span class="price-max">50M+ DA</span>
+                </div>
+            </div>
+            <div class="slider-wrapper">
+                <input type="range" id="priceSlider" min="0" max="50000000" step="500000" value="50000000">
+                <div class="slider-labels">
+                    <span>0</span>
+                    <span>10M</span>
+                    <span>20M</span>
+                    <span>30M</span>
+                    <span>40M</span>
+                    <span>50M+</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="sort-bar">
+            <div class="result-info">
+                <i class="fas fa-building"></i>
+                <span><strong id="displayCount">0</strong> properties found</span>
+            </div>
+            <div class="view-toggle">
+                <button class="view-btn active" id="gridView"><i class="fas fa-th"></i></button>
+                <button class="view-btn" id="listView"><i class="fas fa-list"></i></button>
+            </div>
+        </div>
+        
+        <div class="cards-grid" id="cardsGrid"></div>
+        <div class="load-more-wrap">
+            <button class="btn-load-more" id="loadMoreBtn">Load More Properties <i class="fas fa-chevron-down"></i></button>
+        </div>
+    </main>
+    
+    <aside>
+        <div class="map-card">
+            <div class="map-card-header">
+                <i class="fas fa-map"></i>
+                <h4>Map of Annaba</h4>
+            </div>
+            <div id="listingMap"></div>
+            <div class="map-buttons">
+                <button class="map-btn" id="mapLocateMeBtn"><i class="fas fa-location-dot"></i> My Location</button>
+                <button class="map-btn" id="mapFindNearbyBtn"><i class="fas fa-building"></i> Show All</button>
+                <button class="map-btn" id="mapResetBtn"><i class="fas fa-undo-alt"></i> Reset</button>
+            </div>
+            <div class="map-status" id="mapStatus">
+                <i class="fas fa-info-circle"></i>
+                <span id="mapStatusText">Annaba, Pearl of the Mediterranean</span>
+            </div>
+        </div>
+    </aside>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3 class="footer-logo">DREAMHOME</h3>
+                <p class="footer-desc">Your trusted real estate agency in Annaba, Algeria. Discover luxury properties in the Pearl of the Mediterranean.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="listining.html">Properties</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul class="contact-info">
+                    <li><i class="fas fa-phone"></i> +213 123 456 789</li>
+                    <li><i class="fas fa-envelope"></i> info@dreamhome.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Annaba, Algeria</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 DreamHome. All rights reserved. Annaba - Pearl of the Mediterranean</p>
+        </div>
+    </div>
+</footer>
+
+<div id="toastContainer"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<script src="navbar.js"></script>
+<script src="listining.js"></script>
+</body>
+</html>

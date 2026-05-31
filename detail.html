@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamHome | Property Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="detail.css">
+    <style>
+        @keyframes slideIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:translateX(0)}}
+        .custom-toast{animation:slideIn 0.3s ease;}
+    </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.php" class="nav-logo">DREAMHOME</a>
+        <div class="nav-links" id="navLinks"></div>
+        <div class="nav-right" id="navRight"></div>
+        <button class="nav-hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<main class="detail-main">
+    <div class="back-wrapper"><a href="listining.html" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Properties</a></div>
+    <div class="hero-gallery">
+        <div class="hero-main-image"><img id="mainHeroImage" src="" alt="Property"><span class="hero-badge" id="heroBadge"></span><button class="btn-save-hero" id="saveHeroBtn"><i class="far fa-heart"></i></button></div>
+        <div class="hero-thumbnails" id="thumbnails"></div>
+    </div>
+    <div class="detail-grid">
+        <div class="detail-left">
+            <div class="property-header"><h1 class="property-title" id="propertyTitle">Loading...</h1><div class="property-location"><i class="fas fa-map-marker-alt"></i><span id="propertyDistrict">Loading...</span></div><div class="property-rating" id="propertyRating"><div class="stars-container" id="starsContainer"></div><span class="rating-value" id="ratingValue">0.0</span><span class="rating-count" id="reviewCount">(0 reviews)</span></div></div>
+            <div class="property-specs-grid"><div class="spec-item"><i class="fas fa-bed"></i><div class="spec-label">Bedrooms</div><div class="spec-value" id="specBedrooms">-</div></div><div class="spec-item"><i class="fas fa-bath"></i><div class="spec-label">Bathrooms</div><div class="spec-value" id="specBathrooms">-</div></div><div class="spec-item"><i class="fas fa-vector-square"></i><div class="spec-label">Area</div><div class="spec-value" id="specArea">- m²</div></div><div class="spec-item"><i class="fas fa-users"></i><div class="spec-label">Max Guests</div><div class="spec-value" id="specGuests">-</div></div></div>
+            <div class="property-description"><h3 class="section-title">Description</h3><p id="propertyDesc">Loading property details...</p></div>
+            <div class="property-amenities"><h3 class="section-title">Amenities</h3><div class="amenities-list"><div class="amenity-tag"><i class="fas fa-wifi"></i> Free WiFi</div><div class="amenity-tag"><i class="fas fa-snowflake"></i> Air Conditioning</div><div class="amenity-tag"><i class="fas fa-car"></i> Free Parking</div><div class="amenity-tag"><i class="fas fa-tv"></i> Smart TV</div><div class="amenity-tag"><i class="fas fa-utensils"></i> Kitchen</div><div class="amenity-tag"><i class="fas fa-washer"></i> Washing Machine</div></div></div>
+            <div class="reviews-section"><h3 class="section-title">Guest Reviews</h3><div class="reviews-summary" id="reviewsSummary" style="display:none;"><div class="rating-circle"><div class="rating-number" id="avgRating">0.0</div><div class="rating-outof">out of 5</div><div class="stars-small" id="summaryStars"></div></div><div class="rating-bars" id="ratingBars"></div></div><div class="reviews-list" id="reviewsList"><div class="loading-reviews">Loading reviews...</div></div><div class="write-review" id="writeReviewSection"><h4>Share Your Experience</h4><div id="reviewAuthMessage"></div><form id="reviewForm"><div class="rating-input"><label>Your Rating:</label><div class="star-rating" id="starRating"><i class="far fa-star" data-rating="1"></i><i class="far fa-star" data-rating="2"></i><i class="far fa-star" data-rating="3"></i><i class="far fa-star" data-rating="4"></i><i class="far fa-star" data-rating="5"></i></div><input type="hidden" id="reviewRating" value="0"></div><div class="form-group"><label>Your Review</label><textarea id="reviewComment" rows="3" placeholder="Tell us about your experience..." required></textarea></div><button type="submit" class="btn-submit-review">Submit Review</button></form></div></div>
+        </div>
+        <div class="detail-right"><div class="booking-card"><div class="booking-price"><div class="price-label">PRICE PER NIGHT</div><div class="price-value"><span class="price-dzd">0 DA</span></div><div class="price-period">excluding fees</div></div><button class="btn-reserve" id="reserveBtn"><i class="fas fa-calendar-check"></i> Reserve Now</button><div class="host-card"><div class="host-avatar"><img src="https://ui-avatars.com/api/?name=Owner&background=c9a96e&color=3b2314" alt="Host"></div><div class="host-info"><h4>HOSTED BY</h4><div class="host-name" id="hostName">Property Owner</div><div class="host-badge"><i class="fas fa-check-circle"></i> Verified Host</div></div></div><button class="btn-contact-owner" id="contactOwnerBtn"><i class="fas fa-envelope"></i> Contact Owner</button><div class="trust-badge"><i class="fas fa-shield-alt"></i><span>Secure booking · No hidden fees</span></div></div></div>
+    </div>
+</main>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-col"><h3 class="footer-logo">DREAMHOME</h3><p class="footer-desc">Luxury real estate agency specializing in premium properties across Algeria.</p></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.php">Home</a></li><li><a href="listining.html">Properties</a></li></ul></div><div class="footer-col"><h4>Contact Info</h4><ul class="contact-info"><li><i class="fas fa-phone"></i> +213 123 456 789</li><li><i class="fas fa-envelope"></i> info@dreamhome.com</li><li><i class="fas fa-map-marker-alt"></i> Annaba, Algeria</li></ul></div></div><div class="footer-bottom"><p>&copy; 2024 DreamHome. All rights reserved.</p></div></div></footer>
+
+<script src="navbar.js"></script>
+<script src="detail.js"></script>
+<script>
+function showToastMessage(title, message) {
+    const existing = document.querySelector('.custom-toast');
+    if (existing) existing.remove();
+    const toast = document.createElement('div');
+    toast.className = 'custom-toast';
+    toast.innerHTML = `<div style="display:flex;align-items:center;gap:10px;"><i class="fas fa-bell" style="color:#c9a96e;"></i><div><div style="font-weight:600;">${title}</div><div style="font-size:12px;">${message}</div></div></div>`;
+    toast.style.cssText = 'position:fixed;bottom:100px;right:20px;background:#3b2314;color:white;padding:12px 16px;border-radius:12px;z-index:10000;animation:slideIn 0.3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.2);border-left:4px solid #c9a96e;cursor:pointer;max-width:300px;';
+    toast.onclick = () => toast.remove();
+    document.body.appendChild(toast);
+    setTimeout(() => { if (toast.parentNode) toast.remove(); }, 4000);
+}
+
+function getCurrentUserDetail() {
+    const session = localStorage.getItem('dreamhome_session') || sessionStorage.getItem('dreamhome_session');
+    if (session) { try { return JSON.parse(session); } catch(e) { return null; } }
+    return null;
+}
+
+function setupNotificationBell() {
+    if (document.getElementById('notifBell')) return;
+    const bell = document.createElement('button');
+    bell.id = 'notifBell';
+    bell.innerHTML = '<i class="fas fa-bell"></i><span id="notifBadge" style="display:none;">0</span>';
+    bell.style.cssText = 'position:fixed;bottom:20px;right:20px;width:50px;height:50px;border-radius:50%;background:#c9a96e;border:none;color:#3b2314;cursor:pointer;box-shadow:0 4px 12px rgba(0,0,0,0.15);z-index:9999;font-size:20px;';
+    bell.onclick = () => {
+        const panel = document.getElementById('notifPanel');
+        if (panel) panel.style.display = panel.style.display === 'block' ? 'none' : 'block';
+    };
+    document.body.appendChild(bell);
+    
+    const panel = document.createElement('div');
+    panel.id = 'notifPanel';
+    panel.innerHTML = '<div style="padding:12px;background:#c9a96e;color:#3b2314;font-weight:600;"><i class="fas fa-bell"></i> Notifications <button id="closeNotifPanel" style="float:right;background:none;border:none;font-size:20px;cursor:pointer;">&times;</button></div><div id="notifList" style="max-height:300px;overflow-y:auto;"><div style="padding:20px;text-align:center;color:#999;">No notifications</div></div>';
+    panel.style.cssText = 'position:fixed;bottom:80px;right:20px;width:320px;background:white;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.15);z-index:10000;display:none;overflow:hidden;';
+    document.body.appendChild(panel);
+    document.getElementById('closeNotifPanel')?.addEventListener('click', () => { panel.style.display = 'none'; });
+}
+
+async function checkMessagesDetail() {
+    const user = getCurrentUserDetail();
+    if (!user || !user.id) return;
+    try {
+        const resp = await fetch('api-messages.php?type=conversations');
+        const result = await resp.json();
+        if (result.success && result.conversations) {
+            let total = 0;
+            result.conversations.forEach(c => { total += c.unread_count || 0; });
+            const badge = document.getElementById('notifBadge');
+            if (badge) {
+                if (total > 0) {
+                    badge.textContent = total > 99 ? '99+' : total;
+                    badge.style.display = 'flex';
+                    badge.style.cssText = 'position:absolute;top:-5px;right:-5px;background:#e74c3c;color:white;border-radius:50%;min-width:18px;height:18px;font-size:10px;display:flex;align-items:center;justify-content:center;padding:0 4px;';
+                } else {
+                    badge.style.display = 'none';
+                }
+            }
+            if (total > 0 && !sessionStorage.getItem('detail_notif_shown')) {
+                showToastMessage('New Messages', `You have ${total} unread message(s)`);
+                sessionStorage.setItem('detail_notif_shown', 'true');
+            }
+        }
+    } catch(e) {}
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    setupNotificationBell();
+    setInterval(checkMessagesDetail, 15000);
+    setTimeout(checkMessagesDetail, 2000);
+    
+    const user = getCurrentUserDetail();
+    const guidanceShown = sessionStorage.getItem('detail_guidance');
+    if (!user && !guidanceShown) {
+        setTimeout(() => {
+            showToastMessage('💡 Pro Tip', 'Sign in to save this property to your favorites and contact the owner!');
+            sessionStorage.setItem('detail_guidance', 'true');
+        }, 3000);
+    } else if (user) {
+        setTimeout(() => {
+            showToastMessage('👋 Welcome Back!', 'You can save this property to your favorites.');
+        }, 2000);
+    }
+});
+</script>
+</body>
+</html>

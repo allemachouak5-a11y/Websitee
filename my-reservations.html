@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamHome | My Reservations</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="my-reservations.css">
+</head>
+<body>
+
+<nav class="navbar" id="navbar"><div class="nav-container"><a href="index.html" class="nav-logo">DREAMHOME</a><div class="nav-links" id="navLinks"></div><div class="nav-right" id="navRight"></div><button class="nav-hamburger" id="hamburger"><i class="fas fa-bars"></i></button></div></nav>
+
+<main class="reservations-main">
+    <div class="reservations-header"><div><h1>My Reservations</h1><p>Manage your upcoming and past stays</p></div><div class="filter-tabs"><button class="filter-tab active" data-filter="all">All</button><button class="filter-tab" data-filter="pending">Pending</button><button class="filter-tab" data-filter="confirmed">Confirmed</button><button class="filter-tab" data-filter="completed">Completed</button><button class="filter-tab" data-filter="cancelled">Cancelled</button></div></div>
+    <div class="reservations-stats"><div class="stat-card"><div class="stat-icon"><i class="fas fa-calendar-check"></i></div><div><span class="stat-value" id="totalBookings">0</span><span class="stat-label">Total Bookings</span></div></div><div class="stat-card"><div class="stat-icon"><i class="fas fa-hourglass-half"></i></div><div><span class="stat-value" id="pendingCount">0</span><span class="stat-label">Pending</span></div></div><div class="stat-card"><div class="stat-icon"><i class="fas fa-check-circle"></i></div><div><span class="stat-value" id="confirmedCount">0</span><span class="stat-label">Confirmed</span></div></div><div class="stat-card"><div class="stat-icon"><i class="fas fa-clock"></i></div><div><span class="stat-value" id="completedCount">0</span><span class="stat-label">Completed</span></div></div></div>
+    <div class="reservations-list" id="reservationsList"><div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i><p>Loading your reservations...</p></div></div>
+    <div class="empty-state" id="emptyState" style="display: none;"><i class="fas fa-calendar-alt"></i><h3>No reservations yet</h3><p>Start exploring properties and book your dream stay!</p><button class="btn-explore" onclick="window.location.href='listining.html'"><i class="fas fa-search"></i> Explore Properties</button></div>
+</main>
+
+<div class="modal-overlay" id="detailModal" onclick="if(event.target===this)closeModal()"><div class="modal modal-reservation"><div class="modal-header"><h3>Reservation Details</h3><button class="modal-close" onclick="closeModal()">✕</button></div><div class="modal-body" id="modalBody"></div></div></div>
+<div class="modal-overlay" id="cancelModal" onclick="if(event.target===this)closeCancelModal()"><div class="modal modal-sm"><div class="modal-header"><h3>Cancel Reservation</h3><button class="modal-close" onclick="closeCancelModal()">✕</button></div><div class="modal-body"><p>Are you sure you want to cancel this reservation?</p><p class="text-danger">This action cannot be undone.</p></div><div class="modal-footer"><button class="btn-cancel" onclick="closeCancelModal()">Keep Reservation</button><button class="btn-delete" id="confirmCancelBtn">Cancel Reservation</button></div></div></div>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-col"><h3 class="footer-logo">DREAMHOME</h3><p class="footer-desc">Luxury real estate agency specializing in premium properties across Algeria.</p></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="listining.html">Properties</a></li></ul></div><div class="footer-col"><h4>Contact Info</h4><ul class="contact-info"><li><i class="fas fa-phone"></i> +213 123 456 789</li><li><i class="fas fa-envelope"></i> info@dreamhome.com</li><li><i class="fas fa-map-marker-alt"></i> Annaba, Algeria</li></ul></div></div><div class="footer-bottom"><p>&copy; 2024 DreamHome. All rights reserved.</p></div></div></footer>
+
+<script src="navbar.js"></script>
+<script src="my-reservations.js"></script>
+</body>
+</html>

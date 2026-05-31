@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DreamHome | My Favorites</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="navbar.css">
+  <link rel="stylesheet" href="wishlist.css">
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a href="index.php" class="nav-logo">DREAMHOME</a>
+    <div class="nav-links" id="navLinks"></div>
+    <div class="nav-right" id="navRight"></div>
+    <button class="nav-hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+  </div>
+</nav>
+
+<main class="wishlist-main">
+  <div class="wishlist-header">
+    <div>
+      <h1>My Favorites</h1>
+      <p>Properties you've saved for later</p>
+    </div>
+    <div class="wishlist-stats">
+      <span id="favCount">0</span> saved properties
+    </div>
+  </div>
+
+  <div class="wishlist-grid" id="wishlistGrid">
+    <div class="loading-spinner">
+      <i class="fas fa-spinner fa-spin"></i>
+      <p>Loading your favorites...</p>
+    </div>
+  </div>
+
+  <div class="empty-state" id="emptyState" style="display: none;">
+    <i class="far fa-heart"></i>
+    <h3>No favorites yet</h3>
+    <p>Start exploring properties and save your favorites!</p>
+    <button class="btn-explore" onclick="window.location.href='listining.html'">
+      <i class="fas fa-search"></i> Explore Properties
+    </button>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3 class="footer-logo">DREAMHOME</h3>
+        <p class="footer-desc">Luxury real estate agency specializing in premium properties across Algeria.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="index.php">Home</a></li>
+          <li><a href="listining.html">Properties</a></li>
+          <li><a href="#">Agents</a></li>
+          <li><a href="#">About Us</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact Info</h4>
+        <ul class="contact-info">
+          <li><i class="fas fa-phone"></i> +213 123 456 789</li>
+          <li><i class="fas fa-envelope"></i> info@dreamhome.com</li>
+          <li><i class="fas fa-map-marker-alt"></i> Annaba, Algeria</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 DreamHome. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<div id="toastContainer"></div>
+
+<script src="navbar.js"></script>
+<script src="wishlist.js"></script>
+</body>
+</html>

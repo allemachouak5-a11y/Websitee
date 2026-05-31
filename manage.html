@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>DreamHome | Gérer les espaces</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="manage.css">
+</head>
+<body>
+
+<nav class="navbar" id="navbar"><div class="nav-container"><a href="index.php" class="nav-logo">DREAMHOME</a><div class="nav-links" id="navLinks"></div><div class="nav-right" id="navRight"></div><button class="nav-hamburger" id="hamburger"><i class="fas fa-bars"></i></button></div></nav>
+
+<div class="manage-container"><div class="manage-header"><div><h1>Gérer les espaces</h1><p class="subtitle">Gérez tous vos logements et propriétés</p></div><button class="btn-add" onclick="openAddModal()"><i class="fas fa-plus"></i> Ajouter un espace</button></div><div class="stats-filters"><button class="stat-filter-btn active" data-stat-filter="all"><i class="fas fa-layer-group"></i> Tous <span id="statAll">0</span></button><button class="stat-filter-btn" data-stat-filter="active"><i class="fas fa-check-circle"></i> Actifs <span id="statActive">0</span></button><button class="stat-filter-btn" data-stat-filter="inactive"><i class="fas fa-pause-circle"></i> Inactifs <span id="statInactive">0</span></button><button class="stat-filter-btn" data-stat-filter="draft"><i class="fas fa-file-alt"></i> Brouillon <span id="statDraft">0</span></button></div><div class="filter-bar"><div class="search-wrapper"><i class="fas fa-search"></i><input type="text" id="searchInput" placeholder="Rechercher par nom ou localisation..." class="search-input"></div><select id="statusFilter" class="status-filter"><option value="all">Tous les statuts</option><option value="available">Disponible</option><option value="booked">Occupé</option><option value="inactive">Inactif</option><option value="draft">Brouillon</option></select><div class="view-toggle"><button class="view-btn active" data-view="grid"><i class="fas fa-th"></i></button><button class="view-btn" data-view="list"><i class="fas fa-list"></i></button></div></div><div class="bulk-actions-bar" id="bulkActionsBar" style="display: none;"><div class="bulk-info"><i class="fas fa-check-square"></i><span id="selectedCount">0</span> élément(s) sélectionné(s)</div><div class="bulk-buttons"><button class="bulk-btn bulk-activate" onclick="bulkActivate()"><i class="fas fa-play"></i> Activer</button><button class="bulk-btn bulk-deactivate" onclick="bulkDeactivate()"><i class="fas fa-pause"></i> Désactiver</button><button class="bulk-btn bulk-delete" onclick="bulkDelete()"><i class="fas fa-trash"></i> Supprimer</button><button class="bulk-btn bulk-cancel" onclick="clearSelection()"><i class="fas fa-times"></i> Annuler</button></div></div><div id="propertiesContainer" class="properties-container grid-view"></div></div>
+
+<footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-col"><h3 class="footer-logo">DREAMHOME</h3><p class="footer-desc">Luxury real estate agency specializing in premium properties across Algeria.</p></div><div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="listining.html">Properties</a></li></ul></div><div class="footer-col"><h4>Contact Info</h4><ul class="contact-info"><li><i class="fas fa-phone"></i> +213 123 456 789</li><li><i class="fas fa-envelope"></i> info@dreamhome.com</li><li><i class="fas fa-map-marker-alt"></i> Annaba, Algeria</li></ul></div></div><div class="footer-bottom"><p>&copy; 2024 DreamHome. All rights reserved.</p></div></div></footer>
+
+<div class="modal-overlay" id="propertyModal" onclick="if(event.target===this)closePropertyModal()"><div class="modal"><div class="modal-header"><h3 id="modalTitle">Ajouter un espace</h3><button class="modal-close" onclick="closePropertyModal()">✕</button></div><div class="modal-body"><input type="hidden" id="editId"><div class="form-group"><label><i class="fas fa-tag"></i> Nom de l'espace *</label><input type="text" id="propName" placeholder="ex: Appartement Luxe"></div><div class="form-group"><label><i class="fas fa-map-marker-alt"></i> Localisation *</label><input type="text" id="propLocation" placeholder="Annaba Centre"></div><div class="form-group"><label><i class="fas fa-dollar-sign"></i> Prix (DA/nuit) *</label><input type="number" id="propPrice" placeholder="8000"></div><div class="form-group"><label><i class="fas fa-image"></i> Image URL</label><input type="text" id="propImage" placeholder="https://..."></div><div class="form-group"><label><i class="fas fa-align-left"></i> Description</label><textarea id="propDesc" rows="3" placeholder="Description du logement..."></textarea></div><div class="form-group"><label><i class="fas fa-circle"></i> Statut</label><select id="propStatus"><option value="available">Disponible</option><option value="booked">Occupé</option><option value="inactive">Inactif</option><option value="draft">Brouillon</option></select></div></div><div class="modal-footer"><button class="btn-cancel" onclick="closePropertyModal()">Annuler</button><button class="btn-save" onclick="saveProperty()">Enregistrer</button></div></div></div>
+<div class="modal-overlay" id="deleteModal" onclick="if(event.target===this)closeDeleteModal()"><div class="modal modal-sm"><div class="modal-header"><h3>Confirmer la suppression</h3><button class="modal-close" onclick="closeDeleteModal()">✕</button></div><div class="modal-body"><p>Êtes-vous sûr de vouloir supprimer <strong id="deleteItemName"></strong> ?</p><p class="text-danger"><i class="fas fa-exclamation-triangle"></i> Cette action est irréversible.</p></div><div class="modal-footer"><button class="btn-cancel" onclick="closeDeleteModal()">Annuler</button><button class="btn-delete" id="confirmDeleteBtn" onclick="executeDeleteProperty()">Supprimer</button></div></div></div>
+<div class="requests-section" style="margin-top: 3rem;">
+    <div class="manage-header" style="margin-bottom: 1.5rem;">
+        <div>
+            <h2><i class="fas fa-calendar-check"></i> Booking Requests</h2>
+            <p class="subtitle">Review and respond to tenant booking requests</p>
+        </div>
+    </div>
+    <div id="ownerRequestsContainer" class="requests-container">
+        <div class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Loading requests...</div>
+    </div>
+</div>
+<script src="navbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+<script src="manage.js"></script>
+</body>
+</html>

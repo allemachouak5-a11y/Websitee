@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamHome | Sign In</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+<div class="toast" id="toast"><span class="toast-icon"><i class="fas fa-check-circle"></i></span><span id="toastMsg">Welcome back to DreamHome!</span></div>
+<div class="login-hero"><img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&auto=format" alt="Luxury Home"><div class="login-overlay"></div></div>
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="lang-row"><div class="lang-toggle"><button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button><button class="lang-btn" data-lang="ar" onclick="setLanguage('ar')">عربي</button></div></div>
+        <div class="form-header"><div class="form-greeting"><span class="greeting-text">Welcome Back</span></div><h2 class="form-title">Sign In</h2><p class="form-subtitle">Enter your credentials to access your DreamHome account</p></div>
+        <div class="social-btns"><button class="social-btn" onclick="socialLogin('Google')"><i class="fab fa-google social-icon"></i> Google</button><button class="social-btn" onclick="socialLogin('Apple')"><i class="fab fa-apple social-icon"></i> Apple</button></div>
+        <div class="divider"><div class="divider-line"></div><span class="divider-text">or continue with email</span><div class="divider-line"></div></div>
+        <div class="input-group"><label class="input-label"><span>Email Address</span><a href="#" class="forgot-link">Forgot password?</a></label><div class="input-wrap"><i class="fas fa-envelope input-icon"></i><input type="email" class="input-field" id="emailField" placeholder="you@example.com" autocomplete="email"></div><span class="error-msg" id="emailErr">Please enter a valid email address</span></div>
+        <div class="input-group"><label class="input-label"><span>Password</span></label><div class="input-wrap"><i class="fas fa-lock input-icon"></i><input type="password" class="input-field" id="passField" placeholder="••••••••" autocomplete="current-password"><button class="eye-btn" type="button" onclick="togglePassword()"><i class="far fa-eye" id="eyeIcon"></i></button></div><span class="error-msg" id="passErr">Password must be at least 6 characters</span></div>
+        <div class="remember-row"><div class="checkbox-wrap" onclick="toggleCheckbox()"><div class="checkbox-custom" id="checkBox"></div><span class="checkbox-label">Remember me</span></div></div>
+        <button class="btn-submit" id="submitBtn" onclick="handleLogin()">Sign In to DreamHome</button>
+        <div class="register-row"><span>Don't have an account?</span><a href="regist.html" class="register-link">Create one free</a></div>
+    </div>
+</div>
+
+<script src="login.js"></script>
+</body>
+</html>

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamHome | Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.php" class="nav-logo">DREAMHOME</a>
+        <div class="nav-links" id="navLinks"></div>
+        <div class="nav-right" id="navRight"></div>
+        <button class="nav-hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<main class="admin-container">
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <h2><i class="fas fa-crown"></i> Admin Panel</h2>
+            </div>
+            <ul class="admin-menu">
+                <li><button data-panel="dashboard" class="active" onclick="showPanel('dashboard')"><i class="fas fa-chart-line"></i> Dashboard</button></li>
+                <li><button data-panel="pending" onclick="showPanel('pending')"><i class="fas fa-clock"></i> Pending Approval <span id="pendingCount" style="background: var(--warning); color: white; border-radius: 20px; padding: 0.1rem 0.5rem; font-size: 0.7rem; margin-left: auto;"></span></button></li>
+                <li><button data-panel="properties" onclick="showPanel('properties')"><i class="fas fa-building"></i> All Properties</button></li>
+                <li><button data-panel="users" onclick="showPanel('users')"><i class="fas fa-users"></i> Users</button></li>
+                <li><button data-panel="bookings" onclick="showPanel('bookings')"><i class="fas fa-calendar-check"></i> Bookings</button></li>
+                <li><button data-panel="reviews" onclick="showPanel('reviews')"><i class="fas fa-star"></i> Reviews</button></li>
+                <li><button onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button></li>
+            </ul>
+        </aside>
+        
+        <div class="admin-content">
+            <div class="admin-panel active" id="dashboardPanel">
+                <div class="admin-header">
+                    <h1><i class="fas fa-chart-line"></i> Dashboard Overview</h1>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-building"></i></div>
+                        <div>
+                            <h3>Total Properties</h3>
+                            <div class="stat-number" id="statTotalProperties">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <div>
+                            <h3>Pending Approval</h3>
+                            <div class="stat-number" id="statPendingProperties">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-users"></i></div>
+                        <div>
+                            <h3>Active Users</h3>
+                            <div class="stat-number" id="statActiveUsers">0</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div>
+                            <h3>Total Bookings</h3>
+                            <div class="stat-number" id="statTotalBookings">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="charts-grid">
+                    <div class="chart-card">
+                        <h3>Monthly Bookings</h3>
+                        <canvas id="bookingsChart" width="400" height="200"></canvas>
+                    </div>
+                    <div class="chart-card">
+                        <h3>Monthly Revenue (DA)</h3>
+                        <canvas id="revenueChart" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="admin-panel" id="pendingPanel">
+                <div class="admin-header">
+                    <h1><i class="fas fa-clock"></i> Properties Pending Approval</h1>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Image</th><th>Property Name</th><th>Owner</th><th>Location</th><th>Price</th><th>Status</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="pendingPropertiesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-panel" id="propertiesPanel">
+                <div class="admin-header">
+                    <h1><i class="fas fa-building"></i> All Properties</h1>
+                    <div class="panel-actions">
+                        <button class="btn-primary" onclick="openAddPropertyModal()"><i class="fas fa-plus"></i> Add Property</button>
+                    </div>
+                </div>
+                <div class="filter-bar">
+                    <input type="text" id="propSearch" class="search-input" placeholder="Search by name or owner...">
+                    <select id="propStatusFilter" class="filter-select">
+                        <option value="all">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="approved">Approved</option>
+                        <option value="rejected">Rejected</option>
+                    </select>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Image</th><th>Property Name</th><th>Owner</th><th>Location</th><th>Price</th><th>Beds</th><th>Status</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="allPropertiesTable"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-panel" id="usersPanel">
+                <div class="admin-header">
+                    <h1><i class="fas fa-users"></i> Users Management</h1>
+                </div>
+                <div class="filter-bar">
+                    <input type="text" id="userSearch" class="search-input" placeholder="Search by name or email...">
+                    <select id="userRoleFilter" class="filter-select">
+                        <option value="all">All Roles</option>
+                        <option value="admin">Admin</option>
+                        <option value="owner">Owner</option>
+                        <option value="tenant">Tenant</option>
+                    </select>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Role</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="usersTable"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-panel" id="bookingsPanel">
+                <div class="admin-header">
+                    <h1><i class="fas fa-calendar-check"></i> Bookings Management</h1>
+                </div>
+                <div class="filter-bar">
+                    <input type="text" id="bookingSearch" class="search-input" placeholder="Search by reference or property...">
+                    <select id="bookingStatusFilter" class="filter-select">
+                        <option value="all">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="cancelled">Cancelled</option>
+                        <option value="completed">Completed</option>
+                    </select>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Reference</th><th>Property</th><th>User</th><th>Dates</th><th>Days</th><th>Amount</th><th>Status</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="bookingsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+            <div class="admin-panel" id="reviewsPanel">
+                <div class="admin-header">
+                    <h1><i class="fas fa-star"></i> Reviews Management</h1>
+                </div>
+                <div class="table-container">
+                    <table class="data-table">
+                        <thead>
+                            <tr><th>Reviewer</th><th>Property</th><th>Rating</th><th>Comment</th><th>Date</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody id="reviewsTable"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<div class="modal-overlay" id="propertyModal" onclick="if(event.target===this)closePropertyModal()">
+    <div class="modal">
+        <div class="modal-header">
+            <h3 id="modalTitle">Add Property</h3>
+            <button class="modal-close" onclick="closePropertyModal()">✕</button>
+        </div>
+        <div class="modal-body">
+            <input type="hidden" id="editPropertyId">
+            <div class="form-row">
+                <div class="form-group"><label>Property Name *</label><input type="text" id="propName" placeholder="e.g., Luxury Villa"></div>
+                <div class="form-group"><label>Location</label><input type="text" id="propLocation" placeholder="e.g., Seraïdi"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>District</label><input type="text" id="propDistrict" placeholder="e.g., SERAÏDI"></div>
+                <div class="form-group"><label>Type</label>
+                    <select id="propType">
+                        <option value="apartment">Apartment</option>
+                        <option value="villa">Villa</option>
+                        <option value="studio">Studio</option>
+                        <option value="duplex">Duplex</option>
+                        <option value="penthouse">Penthouse</option>
+                        <option value="loft">Loft</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Price (DA/night) *</label><input type="number" id="propPrice" placeholder="e.g., 150000"></div>
+                <div class="form-group"><label>Bedrooms</label><input type="number" id="propBedrooms" value="2"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Bathrooms</label><input type="number" id="propBathrooms" value="2"></div>
+                <div class="form-group"><label>Area (m²)</label><input type="number" id="propArea" value="100"></div>
+            </div>
+            <div class="form-row">
+                <div class="form-group"><label>Max Guests</label><input type="number" id="propMaxGuests" value="4"></div>
+                <div class="form-group"><label>Image URL</label><input type="text" id="propImage" placeholder="https://..."></div>
+            </div>
+            <div class="form-group"><label>Description</label><textarea id="propDescription" rows="3" placeholder="Property description..."></textarea></div>
+            <div class="form-group"><label><input type="checkbox" id="propFeatured"> Featured Property</label></div>
+        </div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closePropertyModal()">Cancel</button>
+            <button class="btn-primary" onclick="saveProperty()">Save Property</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="propertyDetailModal" onclick="if(event.target===this)closeDetailModal()">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Property Details</h3>
+            <button class="modal-close" onclick="closeDetailModal()">✕</button>
+        </div>
+        <div class="modal-body" id="propertyDetailBody"></div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closeDetailModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-overlay" id="bookingDetailModal" onclick="if(event.target===this)closeBookingDetailModal()">
+    <div class="modal">
+        <div class="modal-header">
+            <h3>Booking Details</h3>
+            <button class="modal-close" onclick="closeBookingDetailModal()">✕</button>
+        </div>
+        <div class="modal-body" id="bookingDetailBody"></div>
+        <div class="modal-footer">
+            <button class="btn-secondary" onclick="closeBookingDetailModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<div id="toastContainer"></div>
+
+<script src="navbar.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

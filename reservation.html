@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>DreamHome | Book Convertible Spaces</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="navbar.css">
+    <link rel="stylesheet" href="reservation.css">
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+    <div class="nav-container">
+        <a href="index.php" class="nav-logo">DREAMHOME</a>
+        <div class="nav-links" id="navLinks"></div>
+        <div class="nav-right" id="navRight"></div>
+        <button class="nav-hamburger" id="hamburger"><i class="fas fa-bars"></i></button>
+    </div>
+</nav>
+
+<div class="reservation-wrapper">
+    <div class="booking-hero">
+        <div class="hero-badge">CONVERTIBLE SPACES</div>
+        <h1>Book Convertible <br><span class="gold-text">Homes & Studios</span></h1>
+        <p>Residential • Photo Studio • Professional Kitchen • Event Space • Gym • Wellness • Conference</p>
+    </div>
+    
+    <div class="steps-progress">
+        <div class="step-progress" id="stepProgress1">
+            <div class="step-circle">1</div>
+            <span>Choose Space</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-progress" id="stepProgress2">
+            <div class="step-circle">2</div>
+            <span>Dates & Guests</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-progress" id="stepProgress3">
+            <div class="step-circle">3</div>
+            <span>Payment</span>
+        </div>
+        <div class="step-line"></div>
+        <div class="step-progress" id="stepProgress4">
+            <div class="step-circle">4</div>
+            <span>Contract</span>
+        </div>
+    </div>
+    
+    <div class="step-container active-step" id="step1">
+        <div class="step-header">
+            <h2>What type of space do you need?</h2>
+            <p>Choose the perfect space for your needs</p>
+        </div>
+        <div class="options-grid" id="optionsGrid"></div>
+        <div class="step-footer">
+            <div></div>
+            <button class="btn-next" id="btnNext1" onclick="goToStep(2)" disabled>Continue →</button>
+        </div>
+    </div>
+    
+    <div class="step-container" id="step2">
+        <div class="step-header">
+            <h2>Select Your Dates</h2>
+            <p>Choose when you want to stay</p>
+        </div>
+        <div class="step2-content">
+            <div class="calendar-container">
+                <div class="calendar-header">
+                    <button type="button" class="calendar-nav" id="prevMonthBtn"><i class="fas fa-chevron-left"></i></button>
+                    <h3 id="currentMonthYear"></h3>
+                    <button type="button" class="calendar-nav" id="nextMonthBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="calendar-weekdays">
+                    <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                </div>
+                <div class="calendar-days" id="calendarDays"></div>
+                <div class="calendar-legend">
+                    <div class="legend-item"><span class="legend-color available"></span>Available</div>
+                    <div class="legend-item"><span class="legend-color booked"></span>Booked</div>
+                    <div class="legend-item"><span class="legend-color selected-start"></span>Selected</div>
+                </div>
+            </div>
+            
+            <div class="date-selection">
+                <div class="date-group">
+                    <label><i class="fas fa-calendar-alt"></i> Check-in</label>
+                    <input type="date" id="checkInDate" class="date-input">
+                </div>
+                <div class="date-group">
+                    <label><i class="fas fa-calendar-check"></i> Check-out</label>
+                    <input type="date" id="checkOutDate" class="date-input">
+                </div>
+            </div>
+            <div class="nights-indicator">
+                <i class="fas fa-moon"></i> <span id="nightsCount">0</span> night(s)
+            </div>
+            
+            <div class="guest-selector">
+                <label><i class="fas fa-users"></i> Number of guests * <span id="maxGuestsHint" style="font-size: 0.65rem; color: var(--gray);">(Max: -- guests)</span></label>
+                <div class="guest-controls">
+                    <button class="guest-btn" id="guestMinus" type="button">−</button>
+                    <span id="guestCount">2</span>
+                    <button class="guest-btn" id="guestPlus" type="button">+</button>
+                </div>
+            </div>
+            <div class="error-msg" id="guestError"></div>
+            
+            <div class="special-requests">
+                <label><i class="fas fa-pen"></i> Special requests <span class="opt">(optional)</span></label>
+                <textarea id="specialRequests" rows="2" placeholder="Any special requests?"></textarea>
+            </div>
+        </div>
+        <div class="step-footer">
+            <button class="btn-back" onclick="goToStep(1)">← Back</button>
+            <button class="btn-next" id="btnNext2" onclick="goToStep(3)" disabled>Continue →</button>
+        </div>
+    </div>
+    
+    <div class="step-container" id="step3">
+        <div class="step-header">
+            <h2>Confirm & Pay</h2>
+            <p>Review your booking and choose payment method</p>
+        </div>
+        <div class="step3-grid">
+            <div class="booking-summary-card">
+                <h3>Booking Summary</h3>
+                <div class="summary-row"><span>Space Type</span><strong id="summaryType">—</strong></div>
+                <div class="summary-row"><span>Check-in</span><strong id="summaryCheckIn">—</strong></div>
+                <div class="summary-row"><span>Check-out</span><strong id="summaryCheckOut">—</strong></div>
+                <div class="summary-row"><span>Guests</span><strong id="summaryGuests">—</strong></div>
+                <div class="price-breakdown">
+                    <div class="price-row"><span>Price / night</span><strong id="unitPrice">—</strong></div>
+                    <div class="price-row"><span>Nights</span><strong id="unitCount">—</strong></div>
+                    <div class="price-row total"><span>Total Amount</span><strong id="totalAmount">—</strong></div>
+                </div>
+            </div>
+            
+            <div class="payment-section">
+                <h3>Payment Method</h3>
+                <div class="method-list">
+                    <div class="method-card" onclick="selectPayment('card', this)">
+                        <div class="method-icon">💳</div>
+                        <div class="method-info"><strong>Credit Card</strong><span>Visa / Mastercard</span></div>
+                        <div class="method-check">✓</div>
+                    </div>
+                    <div class="method-card" onclick="selectPayment('baridimob', this)">
+                        <div class="method-icon">📱</div>
+                        <div class="method-info"><strong>BaridiMob</strong><span>Mobile payment</span></div>
+                        <div class="method-check">✓</div>
+                    </div>
+                    <div class="method-card" onclick="selectPayment('bank', this)">
+                        <div class="method-icon">🏦</div>
+                        <div class="method-info"><strong>Bank Transfer</strong><span>via your bank</span></div>
+                        <div class="method-check">✓</div>
+                    </div>
+                </div>
+                
+                <div class="payment-details hidden" id="payCardDetails">
+                    <div class="card-form">
+                        <div class="form-field">
+                            <label>Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" oninput="formatCard(this)">
+                        </div>
+                        <div class="form-field">
+                            <label>Cardholder Name</label>
+                            <input type="text" id="cardName" placeholder="Ahmed Benali">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label>Expiry</label>
+                                <input type="text" id="cardExpiry" placeholder="12/28" maxlength="5" oninput="formatExpiry(this)">
+                            </div>
+                            <div class="form-field">
+                                <label>CVV</label>
+                                <input type="password" id="cardCvv" placeholder="123" maxlength="3">
+                            </div>
+                        </div>
+                        <div class="error-msg" id="cardError"></div>
+                    </div>
+                </div>
+                
+                <div class="payment-details hidden" id="payBaridiDetails">
+                    <div class="card-form">
+                        <div class="form-field">
+                            <label><i class="fas fa-phone"></i> Phone Number</label>
+                            <input type="tel" id="baridiPhone" placeholder="0551 23 45 67" maxlength="12" oninput="formatPhone(this)">
+                            <small class="field-hint">10 digits starting with 05, 06, or 07</small>
+                        </div>
+                        <div class="form-field">
+                            <label><i class="fas fa-key"></i> BaridiMob Code</label>
+                            <input type="text" id="baridiCode" placeholder="123456" maxlength="6">
+                            <small class="field-hint">6-digit payment code</small>
+                        </div>
+                        <div class="payment-info">
+                            <p><strong>Amount to pay:</strong> <strong id="baridiAmount" style="color: var(--gold);">—</strong></p>
+                        </div>
+                        <div class="error-msg" id="baridiError"></div>
+                    </div>
+                </div>
+                
+                <div class="payment-details hidden" id="payBankDetails">
+                    <div class="card-form">
+                        <div class="form-field">
+                            <label>Account Holder Name</label>
+                            <input type="text" id="bankHolder" placeholder="Full name">
+                        </div>
+                        <div class="form-field">
+                            <label>IBAN</label>
+                            <input type="text" id="bankIban" placeholder="DZ02 1234 5678 9012 3456 7890" maxlength="30" oninput="formatIban(this)">
+                            <small class="field-hint">Starts with DZ followed by 24 digits</small>
+                        </div>
+                        <div class="form-field">
+                            <label>Bank Name</label>
+                            <input type="text" id="bankName" placeholder="Name of your bank">
+                        </div>
+                        <div class="payment-info">
+                            <p><strong>Amount to transfer:</strong> <strong id="bankAmount" style="color: var(--gold);">—</strong></p>
+                        </div>
+                        <div class="error-msg" id="bankError"></div>
+                    </div>
+                </div>
+                
+                <div class="cancellation-policy">
+                    <i class="fas fa-shield-alt"></i>
+                    <p>Free cancellation up to 48 hours before check-in</p>
+                </div>
+            </div>
+        </div>
+        <div class="step-footer">
+            <button class="btn-back" onclick="goToStep(2)">← Back</button>
+            <button class="btn-next" id="btnNext3" onclick="goToStep(4)">Review Contract →</button>
+        </div>
+    </div>
+    
+    <div class="step-container" id="step4">
+        <div class="step-header">
+            <h2>Rental Contract</h2>
+            <p>Please review and accept the terms</p>
+        </div>
+        
+        <div class="contract-container">
+            <div class="contract-header">
+                <h3>SHORT-TERM RENTAL AGREEMENT</h3>
+                <p>DreamHome - Contract #<span id="contractNumber">DREAM-2025-XXXX</span></p>
+            </div>
+            
+            <div class="contract-content" id="contractContent">
+                <div class="contract-loading">Loading contract...</div>
+            </div>
+            
+            <div class="contract-actions">
+                <button class="btn-download" id="downloadContractBtn" type="button">
+                    <i class="fas fa-download"></i> Download Contract
+                </button>
+            </div>
+            
+            <div class="contract-acceptance">
+                <div class="acceptance-check">
+                    <input type="checkbox" id="acceptContract">
+                    <label for="acceptContract">
+                        I have read and understood the Rental Contract. I agree to all terms and conditions.
+                    </label>
+                </div>
+                <div class="acceptance-signature">
+                    <label>Electronic Signature (Full Name)</label>
+                    <input type="text" id="signatureName" placeholder="Enter your full legal name">
+                </div>
+            </div>
+        </div>
+        
+        <div class="step-footer">
+            <button class="btn-back" onclick="goToStep(3)">← Back to Payment</button>
+            <button class="btn-confirm" id="btnConfirmBooking" onclick="confirmReservation()" disabled>Sign & Confirm Booking ✓</button>
+        </div>
+    </div>
+    
+    <div class="step-container" id="stepSuccess">
+        <div class="success-screen">
+            <div class="success-icon">✅</div>
+            <h2>Booking Confirmed!</h2>
+            <p>Your contract has been signed and your booking is confirmed.</p>
+            <div class="success-ref">Reference: <strong id="bookingRef">#DREAM-2025-0001</strong></div>
+            <div class="success-actions">
+                <button class="btn-download" id="successDownloadContract" type="button">
+                    <i class="fas fa-file-pdf"></i> Download Contract
+                </button>
+                <a href="listining.html" class="btn-back">Back to Properties</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h3 class="footer-logo">DREAMHOME</h3>
+                <p class="footer-desc">Luxury real estate agency specializing in premium properties across Algeria.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.php">Home</a></li>
+                    <li><a href="listining.html">Properties</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <ul class="contact-info">
+                    <li><i class="fas fa-phone"></i> +213 123 456 789</li>
+                    <li><i class="fas fa-envelope"></i> info@dreamhome.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Annaba, Algeria</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 DreamHome. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script src="navbar.js"></script>
+<script src="reservation.js"></script>
+</body>
+</html>

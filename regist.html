@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DreamHome | Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@300;400;500;600;700;800;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="regist.css">
+</head>
+<body>
+
+<div class="toast" id="toast"><span class="toast-icon"><i class="fas fa-check-circle"></i></span><span id="toastMsg">Welcome to DreamHome!</span></div>
+<div class="login-hero"><img src="https://images.unsplash.com/photo-1613977257363-707ba9348227?w=1600&auto=format" alt="Luxury Home"><div class="login-overlay"></div></div>
+
+<div class="login-container">
+    <div class="login-card">
+        <div class="lang-row"><div class="lang-toggle"><button class="lang-btn active" data-lang="en" onclick="setLanguage('en')">EN</button><button class="lang-btn" data-lang="ar" onclick="setLanguage('ar')">عربي</button></div></div>
+        <div class="form-header"><div class="form-greeting"><span class="greeting-text">Join DreamHome</span></div><h2 class="form-title">Create Account</h2><p class="form-subtitle">Fill in your information to get started</p></div>
+        <div class="social-btns"><button class="social-btn" onclick="socialSignup('Google')"><i class="fab fa-google social-icon"></i> Google</button><button class="social-btn" onclick="socialSignup('Apple')"><i class="fab fa-apple social-icon"></i> Apple</button></div>
+        <div class="divider"><div class="divider-line"></div><span class="divider-text">or sign up with email</span><div class="divider-line"></div></div>
+        <div class="progress-wrap"><div class="progress-header"><span class="progress-label">Profile Completion</span><span class="progress-pct" id="progressPct">0%</span></div><div class="progress-track"><div class="progress-bar" id="progressBar" style="width:0%"></div></div><div class="progress-steps"><div class="ps-item" id="ps-identite"><div class="ps-dot"></div><span>Identity</span></div><div class="ps-item" id="ps-contact"><div class="ps-dot"></div><span>Contact</span></div><div class="ps-item" id="ps-securite"><div class="ps-dot"></div><span>Security</span></div><div class="ps-item" id="ps-role"><div class="ps-dot"></div><span>Role</span></div></div></div>
+        <div class="role-tabs"><button class="role-tab active" onclick="setRole('tenant', this)">🏠 Tenant</button><button class="role-tab" onclick="setRole('owner', this)">🔑 Owner</button></div>
+        <div class="form-row"><div class="input-group"><label class="input-label">First Name</label><div class="input-wrap"><i class="fas fa-user input-icon"></i><input type="text" class="input-field" id="fname" placeholder="Sara"></div><span class="error-msg" id="fnameErr">First name cannot start with a number!</span></div><div class="input-group"><label class="input-label">Last Name</label><div class="input-wrap"><i class="fas fa-user input-icon"></i><input type="text" class="input-field" id="lname" placeholder="Benali"></div><span class="error-msg" id="lnameErr">Last name cannot start with a number!</span></div></div>
+        <div class="input-group"><label class="input-label">Email Address</label><div class="input-wrap"><i class="fas fa-envelope input-icon"></i><input type="email" class="input-field" id="email" placeholder="sara.benali@email.com"></div><span class="error-msg" id="emailErr">Email cannot start with a number!</span></div>
+        <div class="input-group"><label class="input-label">Phone Number</label><div class="input-wrap"><i class="fas fa-phone input-icon"></i><input type="tel" class="input-field" id="phone" placeholder="0550123456"></div><span class="error-msg" id="phoneErr">Phone must start with 05, 06, or 07</span></div>
+        <div class="input-group"><label class="input-label">City</label><div class="input-wrap"><i class="fas fa-map-marker-alt input-icon"></i><select class="input-field" id="wilaya"><option value="" disabled selected>Select your city</option><option>Annaba</option><option>Sidi Amar</option><option>El Bouni</option><option>El Hadjar</option><option>Berrahal</option><option>Seraïdi</option></select><i class="fas fa-chevron-down select-arrow"></i></div></div>
+        <div class="input-group"><label class="input-label">Password</label><div class="input-wrap"><i class="fas fa-lock input-icon"></i><input type="password" class="input-field" id="password" placeholder="••••••••"><button class="eye-btn" type="button" onclick="togglePw('password')"><i class="far fa-eye"></i></button></div><div class="strength-bar"><div class="strength-fill" id="strengthFill"></div></div><span class="strength-label" id="strengthLabel"></span></div>
+        <div class="input-group"><label class="input-label">Confirm Password</label><div class="input-wrap"><i class="fas fa-lock input-icon"></i><input type="password" class="input-field" id="confirm" placeholder="••••••••"><button class="eye-btn" type="button" onclick="togglePw('confirm')"><i class="far fa-eye"></i></button></div><span class="error-msg" id="passErr">Passwords do not match</span></div>
+        <div class="checkbox-row"><div class="checkbox-wrap" onclick="toggleTermsCheckbox()"><div class="checkbox-custom" id="termsCheckbox"></div><span class="checkbox-label">I accept the <a href="#">terms and conditions</a></span></div></div>
+        <button class="btn-submit" id="submitBtn" onclick="handleSignup()">Create my account</button>
+        <div class="register-row"><span>Already have an account?</span><a href="login.html" class="register-link">Sign in</a></div>
+    </div>
+</div>
+
+<script src="regist.js"></script>
+</body>
+</html>
